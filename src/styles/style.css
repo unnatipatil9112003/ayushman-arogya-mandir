@@ -1,0 +1,238 @@
+/* ===========================
+   Google Font
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ===========================
+   Reset
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#fcf4fb;
+    /* display:flex;
+    justify-content:center;
+    align-items:center; */
+    min-height:100vh;
+}
+
+/* ===========================
+   Main Container
+=========================== */
+.login-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #fcf4fb;
+}
+
+.content{
+    position: relative;
+    width: 700px;
+    height: 450px;
+    background: #fff;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+}
+
+/* ===========================
+   Forms
+=========================== */
+
+.form-box{
+    position:absolute;
+    top:0;
+    width:50%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:all .6s ease-in-out;
+    background:#fff;
+}
+
+.form-box form{
+    width:100%;
+    padding:0 45px;
+}
+
+.form-box h1{
+    color:#82257b;
+    text-align:center;
+    margin-bottom:25px;
+    font-weight:600;
+}
+
+.form-box input{
+    border-radius:10px !important;
+}
+
+.submit-btn{
+    width:100%;
+    background:#82257b !important;
+    color:#fff !important;
+    border:none !important;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+    font-weight:600;
+}
+
+.submit-btn:hover{
+    background:#6f1d69 !important;
+}
+
+.form-check-label{
+    font-size:14px;
+}
+
+.form-box a{
+    text-decoration:none;
+    color:#82257b;
+    font-size:14px;
+}
+
+/* ===========================
+   Login Position
+=========================== */
+
+.login{
+    left:0;
+    z-index:2;
+}
+
+/* ===========================
+   Register Position
+=========================== */
+
+.register{
+    left:0;
+    opacity:0;
+    z-index:1;
+}
+
+/* ===========================
+   Animation
+=========================== */
+
+.content.active .login{
+    transform:translateX(100%);
+    opacity:0;
+}
+
+.content.active .register{
+    transform:translateX(100%);
+    opacity:1;
+    z-index:5;
+}
+
+
+/* ===========================
+   Purple Sliding Panel
+=========================== */
+
+.toggle-container{
+    position:absolute;
+    top:0;
+    left:50%;
+    width:50%;
+    height:100%;
+    overflow:hidden;
+    transition:all .6s ease-in-out;
+    border-radius:150px 0 0 100px;
+    z-index:1000;
+}
+
+.content.active .toggle-container{
+    transform:translateX(-100%);
+    border-radius:0 150px 100px 0;
+}
+
+.toggle{
+    position:relative;
+    left:-100%;
+    width:200%;
+    height:100%;
+    background:#82257b;
+    color:#fff;
+    transform:translateX(0);
+    transition:all .6s ease-in-out;
+}
+
+.content.active .toggle{
+    transform:translateX(50%);
+}
+
+/* ===========================
+   Toggle Panels
+=========================== */
+
+.toggle-panel{
+    position:absolute;
+    width:50%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:0 40px;
+    transition:all .6s ease-in-out;
+}
+
+.toggle-panel h1{
+    color:#fff;
+    margin-bottom:15px;
+    font-size:32px;
+}
+
+.toggle-panel p{
+    font-size:15px;
+    margin-bottom:25px;
+    line-height:1.5;
+}
+
+.toggle-left{
+    left:0;
+    transform:translateX(-200%);
+}
+
+.content.active .toggle-left{
+    transform:translateX(0);
+}
+
+.toggle-right{
+    right:0;
+    transform:translateX(0);
+}
+
+.content.active .toggle-right{
+    transform:translateX(200%);
+}
+
+/* ===========================
+   Switch Button
+=========================== */
+
+.switch-btn{
+    background:transparent !important;
+    color:#fff !important;
+    border:2px solid #fff !important;
+    width:180px;
+    padding:10px;
+    border-radius:10px;
+    font-weight:600;
+}
+
+.switch-btn:hover{
+    background:#fff !important;
+    color:#82257b !important;
+}

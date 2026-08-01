@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginRegister from './pages/LoginRegister';
+import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
+import Families from "./pages/Families";
+import AddFamily from './pages/AddFamily';
+import FamilyDetails from './pages/FamilyDetails';
+import AddMember from './pages/AddMember';
+import Center from './pages/Center';
+import SubCenter from './pages/SubCenter';
+import Village from './pages/Village';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginRegister />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/families" element={<Families />} />
+        <Route path="/add-family" element={<AddFamily />} />
+        <Route path="/family-details" element={<FamilyDetails />} />
+        <Route path="/add-member" element={<AddMember />} />
+        <Route path="/center" element={<Center />} />
+        <Route path="/sub-center" element={<SubCenter />} />
+        <Route path="/village" element={<Village />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
