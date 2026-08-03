@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Sidebar from "../components/Sidebar";
 
 function Families() {
@@ -8,10 +9,38 @@ function Families() {
 
     useEffect(() => {
 
-        const storedFamilies =
-            JSON.parse(localStorage.getItem("families")) || [];
+        const loadFamilies = async () => {
 
-        setFamilies(storedFamilies);
+            try {
+
+                const token = localStorage.getItem("token");
+
+                const response = await axios.get(
+                    "http://localhost/backend/api/v1/get_families.php",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                console.log("Families List:", response.data.data);
+
+                if (response.data.status === "success") {
+
+                    setFamilies(response.data.data);
+
+                }
+
+            } catch (error) {
+
+                console.error("Families API Error:", error);
+
+            }
+
+        };
+
+        loadFamilies();
 
     }, []);
     console.log(families);
@@ -126,13 +155,13 @@ function Families() {
 
                                 <tr key={index}>
 
-                                    <td>{family.houseNumber}</td>
+                                    <td>{family.house_no}</td>
 
-                                    <td>{family.village}</td>
+                                    <td>{family.village_name}</td>
 
-                                    <td>--</td>
+                                    <td>{family.head_name || "--"}</td>
 
-                                    <td>0</td>
+                                    <td>{family.total_members}</td>
 
                                     <td>
 
@@ -140,7 +169,9 @@ function Families() {
                                             className="btn btn-sm btn-primary"
                                             onClick={() =>
                                                 navigate("/family-details", {
-                                                    state: family
+                                                    state: {
+                                                        familyId: family.family_id
+                                                    }
                                                 })
                                             }
                                         >

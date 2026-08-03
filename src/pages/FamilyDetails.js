@@ -1,27 +1,81 @@
 import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../components/Sidebar";
 
 function FamilyDetails() {
 
     const location = useLocation();
     const familyData = location.state;
+    console.log("Family Data:", familyData);
+    const [familyMembers, setFamilyMembers] = useState([]);
+    const [family, setFamily] = useState(null);
     const navigate = useNavigate();
 
-    const members =
-        JSON.parse(localStorage.getItem("members")) || [];
+    // const members =
+    //     JSON.parse(localStorage.getItem("members")) || [];
 
-    const familyMembers =
-        members.filter(
-            (member) =>
-                member.familyId === familyData.id
-        );
+    // const familyMembers =
+    //     members.filter(
+    //         (member) =>
+    //             member.familyId === familyData.id
+    //     );
     console.log(familyMembers);
+
+    useEffect(() => {
+
+        const loadFamilyDetails = async () => {
+
+            try {
+
+                const token = localStorage.getItem("token");
+
+                const response = await axios.get(
+                    `http://localhost/backend/api/v1/get_family_details.php?id=${familyData.familyId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                console.log(JSON.stringify(response.data, null, 2));
+
+                if (response.data.status === "success") {
+
+                    setFamily(response.data.data.family);
+
+                    setFamilyMembers(response.data.data.members);
+
+                }
+
+            } catch (error) {
+
+                console.error("Family Details Error:", error);
+
+            }
+
+        };
+
+        loadFamilyDetails();
+
+    }, []);
+    if (!family) {
+        return (
+            <div className="dashboard-container">
+                <Sidebar />
+                <div className="main-content">
+                    <h3>Loading Family Details...</h3>
+                </div>
+            </div>
+        );
+    }
 
     const handleEditMember = (member) => {
 
         navigate("/add-member", {
             state: {
-                familyData,
+                family,
                 editMember: member
             }
         });
@@ -89,15 +143,13 @@ function FamilyDetails() {
 
                     <hr />
 
-                    <p><strong>House Number:</strong> {familyData?.houseNumber}</p>
-                    <p><strong>Center:</strong> {familyData?.center}</p>
-                    <p><strong>Sub Center:</strong> {familyData?.subCenter}</p>
-                    <p><strong>Village:</strong> {familyData?.village}</p>
-                    <p><strong>Address:</strong> {familyData?.address}</p>
-                    <p><strong>Ration Card:</strong> {familyData?.rationCard}</p>
-                    <p><strong>Category:</strong> {familyData?.category}</p>
-                    <p><strong>Toilet:</strong> {familyData?.toiletFacility}</p>
-
+                    <p><strong>House Number:</strong> {family.house_no}</p>
+                    <p><strong>Village ID:</strong> {family.village_id}</p>
+                    <p><strong>Address:</strong> {family.address}</p>
+                    <p><strong>Ration Card:</strong> {family.ration_card}</p>
+                    <p><strong>Card Type:</strong> {family.card_type}</p>
+                    <p><strong>Category:</strong> {family.social_category}</p>
+                    <p><strong>Toilet:</strong> {family.sanitation_facility}</p>
                 </div>
 
                 <div className="card p-4">

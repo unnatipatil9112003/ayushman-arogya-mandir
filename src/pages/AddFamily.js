@@ -153,73 +153,59 @@ function AddFamily() {
 
   }, [subCenter]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
 
-    const existingFamilies =
-      JSON.parse(localStorage.getItem("families")) || [];
+    const token = localStorage.getItem("token");
 
-    if (editFamily) {
+    const familyData = {
+      id: editFamily?.id || 0,
+      house_no: houseNumber,
+      village_id: village,
+      address: address,
+      ration_card: rationCard,
+      card_type: rationCard,
+      social_category: category,
+      sanitation_facility: toiletFacility
+    };
 
-      // EDIT MODE
+    try {
 
-      const updatedFamily = {
-        ...editFamily,
-        houseNumber,
-        center,
-        subCenter,
-        village,
-        address,
-        rationCard,
-        category,
-        toiletFacility,
-      };
-
-      const updatedFamilies = existingFamilies.map((family) =>
-        family.id === editFamily.id
-          ? updatedFamily
-          : family
+      const response = await axios.post(
+        "http://localhost/backend/api/v1/save_family.php",
+        familyData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        }
       );
 
-      localStorage.setItem(
-        "families",
-        JSON.stringify(updatedFamilies)
-      );
+      console.log("Save Family Response:", response.data);
 
-      navigate("/family-details", {
-        state: updatedFamily,
-      });
+      if (response.data.status === "success") {
 
-    } else {
+        navigate("/family-details", {
+          state: {
+            familyId: response.data.family_id,
+            houseNumber,
+            village
+          }
+        });
 
-      // ADD MODE
+      } else {
 
-      const newFamily = {
-        id: Date.now(),
-        houseNumber,
-        center,
-        subCenter,
-        village,
-        address,
-        rationCard,
-        category,
-        toiletFacility,
-      };
+        alert(response.data.message);
 
-      existingFamilies.push(newFamily);
+      }
 
-      localStorage.setItem(
-        "families",
-        JSON.stringify(existingFamilies)
-      );
+    } catch (error) {
 
-      navigate("/family-details", {
-        state: newFamily,
-      });
+      console.error("Save Family Error:", error);
 
     }
 
   };
-
   return (
     <div className="dashboard-container">
       <Sidebar />
@@ -425,3 +411,75 @@ function AddFamily() {
 }
 
 export default AddFamily;
+
+
+
+
+
+
+//  const handleNext = () => {
+
+//     const existingFamilies =
+//       JSON.parse(localStorage.getItem("families")) || [];
+
+//     if (editFamily) {
+
+//       // EDIT MODE
+
+//       const updatedFamily = {
+//         ...editFamily,
+//         houseNumber,
+//         center,
+//         subCenter,
+//         village,
+//         address,
+//         rationCard,
+//         category,
+//         toiletFacility,
+//       };
+
+//       const updatedFamilies = existingFamilies.map((family) =>
+//         family.id === editFamily.id
+//           ? updatedFamily
+//           : family
+//       );
+
+//       localStorage.setItem(
+//         "families",
+//         JSON.stringify(updatedFamilies)
+//       );
+
+//       navigate("/family-details", {
+//         state: updatedFamily,
+//       });
+
+//     } else {
+
+//       // ADD MODE
+
+//       const newFamily = {
+//         id: Date.now(),
+//         houseNumber,
+//         center,
+//         subCenter,
+//         village,
+//         address,
+//         rationCard,
+//         category,
+//         toiletFacility,
+//       };
+
+//       existingFamilies.push(newFamily);
+
+//       localStorage.setItem(
+//         "families",
+//         JSON.stringify(existingFamilies)
+//       );
+
+//       navigate("/family-details", {
+//         state: newFamily,
+//       });
+
+//     }
+
+//   };
