@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Sidebar from "../components/Sidebar";
 
 
@@ -7,11 +8,15 @@ function AddMember() {
 
     const location = useLocation();
     const familyData =
-        location.state?.familyData || location.state;
+        location.state?.family ||
+        location.state?.familyData ||
+        location.state;
 
     const editMember =
         location.state?.editMember || null;
     const navigate = useNavigate();
+
+    console.log("Family Data:", familyData);
 
     console.log("Family");
     console.log(familyData);
@@ -20,7 +25,7 @@ function AddMember() {
     console.log(editMember);
 
     const [fullName, setFullName] = useState(
-        editMember?.fullName || ""
+        editMember?.full_name || ""
     );
     const [gender, setGender] = useState(
         editMember?.gender || ""
@@ -29,23 +34,19 @@ function AddMember() {
         editMember?.dob || ""
     );
     const [age, setAge] = useState(
-        editMember?.age || ""
+        editMember?.approx_age || ""
     );
     const [mobileNo, setMobileNo] = useState(
-        editMember?.mobileNo || ""
+        editMember?.mobile_no || ""
     );
     const [aadhaarNo, setAadhaarNo] = useState(
-        editMember?.aadhaarNo || ""
+        editMember?.aadhaar_no || ""
     );
 
-    const [hasSugar, setHasSugar] = useState(
-        editMember?.hasSugar || false
-    );
-    const [hasBP, setHasBP] = useState(
-        editMember?.hasBP || false
-    );
-    const [otherDiseases, setOtherDiseases] = useState(
-        editMember?.otherDiseases || ""
+    const [diseases, setDiseases] = useState([]);
+
+    const [selectedDiseases, setSelectedDiseases] = useState(
+        (editMember?.disease_ids || []).map(Number)
     );
 
     const [education, setEducation] = useState(
@@ -59,62 +60,107 @@ function AddMember() {
     );
 
     const [isHead, setIsHead] = useState(
-        editMember?.isHead || false
+        editMember?.is_head || false
     );
     const [isAlive, setIsAlive] = useState(
-        editMember?.isAlive ?? true
+        editMember?.is_alive ?? true
     );
     const [dateOfDeath, setDateOfDeath] = useState(
         editMember?.dateOfDeath || ""
     );
 
-    const handleSaveMember = () => {
-        const memberData = {
-            id: editMember ? editMember.id : Date.now(),
-            familyId: familyData.id,
-            fullName,
-            gender,
-            dob,
-            age,
-            mobileNo,
-            aadhaarNo,
-            hasSugar,
-            hasBP,
-            otherDiseases,
-            education,
-            occupation,
-            maritalStatus,
-            isHead,
-            isAlive,
-            dateOfDeath
+    useEffect(() => {
+
+        const loadDiseases = async () => {
+
+            try {
+
+                const token = localStorage.getItem("token");
+
+                const familyId = familyData.id || familyData.familyId;
+
+                console.log("Loading diseases for family:", familyId);
+
+                const response = await axios.get(
+                    `http://localhost/backend/api/v1/get_family_details.php?id=${familyId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    }
+                );
+
+                console.log("Diseases API:", response.data.data.diseases);
+
+                setDiseases(response.data.data.diseases);
+
+            } catch (error) {
+
+                console.error("Disease Load Error:", error);
+
+            }
+
         };
-        const members =
-            JSON.parse(localStorage.getItem("members")) || [];
 
-        let updatedMembers;
+        loadDiseases();
 
-        if (editMember) {
+    }, []);
 
-            updatedMembers = members.map((member) =>
-                member.id === editMember.id
-                    ? memberData
-                    : member
+    const handleSaveMember = async () => {
+        const memberData = {
+            id: editMember?.id || 0,
+            family_id: familyData.id || familyData.familyId,
+            full_name: fullName,
+            relation: "",
+            approx_age: age,
+            dob: dob,
+            gender: gender,
+            mobile_no: mobileNo,
+            email: "",
+            is_alive: isAlive ? 1 : 0,
+            is_head: isHead,
+            disease_ids: selectedDiseases
+        };
 
+
+        console.log("Member Data Sending:");
+        console.log(memberData);
+        console.log("Member Data Sending:", memberData);
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            const response = await axios.post(
+                "http://localhost/backend/api/v1/save_member.php",
+                memberData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
             );
 
-        } else {
-            updatedMembers = [...members, memberData];
+            console.log("Save Member Response:", response.data);
+
+            if (response.data.status === "success") {
+
+                navigate("/family-details", {
+                    state: familyData
+                });
+
+            } else {
+
+                alert(response.data.message);
+
+            }
+
+        } catch (error) {
+
+            console.error("Save Member Error:", error);
+
         }
-
-        localStorage.setItem(
-            "members",
-            JSON.stringify(updatedMembers)
-
-        );
-
-        navigate("/family-details", {
-            state: familyData,
-        });
     };
 
     return (
@@ -196,38 +242,56 @@ function AddMember() {
 
                     <hr />
 
-                    <div className="form-check mb-2">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            checked={hasSugar}
-                            onChange={(e) => setHasSugar(e.target.checked)}
-                        />
-                        <label className="form-check-label">
-                            Sugar
-                        </label>
-                    </div>
-
-                    <div className="form-check mb-3">
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            checked={hasBP}
-                            onChange={(e) => setHasBP(e.target.checked)}
-                        />
-                        <label className="form-check-label">
-                            BP
-                        </label>
-                    </div>
-
                     <div className="mb-3">
-                        <label className="form-label">Other Diseases</label>
-                        <textarea
-                            className="form-control"
-                            rows="3"
-                            value={otherDiseases}
-                            onChange={(e) => setOtherDiseases(e.target.value)}
-                        />
+
+                        <label className="form-label">
+                            Diseases
+                        </label>
+
+                        {
+                            diseases.map((disease) => (
+
+                                <div
+                                    className="form-check"
+                                    key={disease.id}
+                                >
+
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        checked={selectedDiseases.includes(Number(disease.id))}
+                                        onChange={(e) => {
+
+                                            if (e.target.checked) {
+
+                                                setSelectedDiseases([
+                                                    ...selectedDiseases,
+                                                    Number(disease.id)
+                                                ]);
+
+                                            } else {
+
+                                                setSelectedDiseases(
+                                                    selectedDiseases.filter(
+                                                        (id) =>
+                                                            Number(id) !== Number(disease.id)
+                                                    )
+                                                );
+
+                                            }
+
+                                        }}
+                                    />
+
+                                    <label className="form-check-label">
+                                        {disease.name}
+                                    </label>
+
+                                </div>
+
+                            ))
+                        }
+
                     </div>
 
                     <hr />

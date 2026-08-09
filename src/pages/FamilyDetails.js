@@ -31,7 +31,7 @@ function FamilyDetails() {
                 const token = localStorage.getItem("token");
 
                 const response = await axios.get(
-                    `http://localhost/backend/api/v1/get_family_details.php?id=${familyData.familyId}`,
+                    `http://localhost/backend/api/v1/get_family_details.php?id=${familyData.id || familyData.familyId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -82,35 +82,45 @@ function FamilyDetails() {
 
     };
 
-    const handleDeleteMember = (member) => {
+    const handleDeleteMember = async (member) => {
 
         const confirmDelete = window.confirm(
-            `Are you sure you want to delete ${member.fullName}?`
+            `Are you sure you want to delete ${member.full_name}?`
         );
 
-        if (!confirmDelete) {
-            return;
+        if (!confirmDelete) return;
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            const response = await axios.post(
+                "http://localhost/backend/api/v1/delete_member.php",
+                {
+                    id: member.id
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+
+            console.log("Delete Response:", response.data);
+            if (response.data.status === "success") {
+
+                setFamilyMembers(
+                    familyMembers.filter((item) => item.id !== member.id)
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error("Delete Error:", error);
+
         }
-
-        // Read members from Local Storage
-        const members =
-            JSON.parse(localStorage.getItem("members")) || [];
-
-        // Remove selected member
-        const updatedMembers = members.filter(
-            (item) => item.id !== member.id
-        );
-
-        // Save updated list
-        localStorage.setItem(
-            "members",
-            JSON.stringify(updatedMembers)
-        );
-
-        // Refresh Family Details page
-        navigate("/family-details", {
-            state: familyData
-        });
 
     };
 
@@ -205,17 +215,27 @@ function FamilyDetails() {
 
                                             <tr key={member.id}>
 
-                                                <td>{member.fullName}</td>
+                                                <td>{member.full_name}</td>
 
                                                 <td>{member.gender}</td>
 
-                                                <td>{member.age}</td>
+                                                <td>{member.approx_age}</td>
 
-                                                <td>{member.mobileNo}</td>
+                                                <td>{member.mobile_no}</td>
 
                                                 <td>
 
-                                                    <button className="btn btn-sm btn-primary me-2">
+                                                    <button
+                                                        className="btn btn-sm btn-primary me-2"
+                                                        onClick={() =>
+                                                            navigate("/member-details", {
+                                                                state: {
+                                                                    family,
+                                                                    member
+                                                                }
+                                                            })
+                                                        }
+                                                    >
                                                         View
                                                     </button>
 

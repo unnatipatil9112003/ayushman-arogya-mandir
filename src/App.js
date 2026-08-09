@@ -6,6 +6,7 @@ import Families from "./pages/Families";
 import AddFamily from './pages/AddFamily';
 import FamilyDetails from './pages/FamilyDetails';
 import AddMember from './pages/AddMember';
+import MemberDetails from './pages/MembersDetails';
 import Center from './pages/Center';
 import SubCenter from './pages/SubCenter';
 import Village from './pages/Village';
@@ -20,6 +21,7 @@ function App() {
         <Route path="/add-family" element={<AddFamily />} />
         <Route path="/family-details" element={<FamilyDetails />} />
         <Route path="/add-member" element={<AddMember />} />
+        <Route path="/member-details" element={<MemberDetails  />} />
         <Route path="/center" element={<Center />} />
         <Route path="/sub-center" element={<SubCenter />} />
         <Route path="/village" element={<Village />} />
