@@ -123,6 +123,7 @@ function FamilyDetails() {
         }
 
     };
+    console.log("Family Data for Edit:", familyData);
 
     return (
 
@@ -142,7 +143,7 @@ function FamilyDetails() {
                             className="btn btn-outline-primary"
                             onClick={() =>
                                 navigate("/add-family", {
-                                    state: familyData,
+                                    state: family,
                                 })
                             }
                         >

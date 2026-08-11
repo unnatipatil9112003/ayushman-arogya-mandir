@@ -47,7 +47,7 @@ function Families() {
 
     const navigate = useNavigate();
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
 
         const confirmDelete = window.confirm(
             "Are you sure you want to delete this family?"
@@ -57,36 +57,71 @@ function Families() {
             return;
         }
 
-        // Read families
-        const families =
-            JSON.parse(localStorage.getItem("families")) || [];
+        try {
 
-        // Remove selected family
-        const updatedFamilies = families.filter(
-            (family) => family.id !== id
-        );
+            const token = localStorage.getItem("token");
 
-        // Save updated array
-        localStorage.setItem(
-            "families",
-            JSON.stringify(updatedFamilies)
-        );
+            console.log("Deleting Family ID:", id);
 
-        // Delete members
-        const members =
-            JSON.parse(localStorage.getItem("members")) || [];
+            const response = await axios.post(
+                "http://localhost/backend/api/v1/delete_family.php",
+                {
+                    id: id
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
 
-        const updatedMembers = members.filter(
-            (member) => member.familyId !== id
-        );
+            console.log("Delete Family Response:", response.data);
 
-        localStorage.setItem(
-            "members",
-            JSON.stringify(updatedMembers)
-        );
+            if (response.data.status === "success") {
 
-        window.location.reload();
-        console.log("Family Deleted Successfully");
+                alert("Family deleted successfully.");
+
+                // Reload family list
+                window.location.reload();
+
+            } else {
+
+                alert(
+                    response.data.message ||
+                    "Failed to delete family."
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Delete Family Error:",
+                error
+            );
+
+            if (error.response) {
+
+                console.error(
+                    "Server Response:",
+                    error.response.data
+                );
+
+                alert(
+                    error.response.data.message ||
+                    "Failed to delete family."
+                );
+
+            } else {
+
+                alert(
+                    "Unable to connect to the server."
+                );
+
+            }
+
+        }
 
     };
 
@@ -180,7 +215,7 @@ function Families() {
 
                                         <button
                                             className="btn btn-sm btn-danger"
-                                            onClick={() => handleDelete(family.id)}
+                                            onClick={() => handleDelete(family.family_id)}
                                         >
                                             Delete
                                         </button>

@@ -418,6 +418,15 @@ function AddMember() {
                         <button
                             type="button"
                             className="btn btn-secondary"
+                            onClick={() =>
+                                navigate("/family-details", {
+                                    state: {
+                                        familyId:
+                                            familyData?.id ||
+                                            familyData?.familyId
+                                    }
+                                })
+                            }
                         >
                             Cancel
                         </button>

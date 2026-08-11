@@ -11,28 +11,35 @@ function AddFamily() {
   // console.log(location.state);
 
   const [houseNumber, setHouseNumber] = useState(
-    editFamily?.houseNumber || ""
+    editFamily?.house_no || ""
   );
+
   const [center, setCenter] = useState(
-    editFamily?.center || ""
+    editFamily?.center_id || ""
   );
+
   const [subCenter, setSubCenter] = useState(
-    editFamily?.subCenter || ""
+    editFamily?.sub_center_id || ""
   );
+
   const [village, setVillage] = useState(
-    editFamily?.village || ""
+    editFamily?.village_id || ""
   );
+
   const [address, setAddress] = useState(
     editFamily?.address || ""
   );
+
   const [rationCard, setRationCard] = useState(
-    editFamily?.rationCard || ""
+    editFamily?.ration_card || ""
   );
+
   const [category, setCategory] = useState(
-    editFamily?.category || ""
+    editFamily?.social_category || ""
   );
+
   const [toiletFacility, setToiletFacility] = useState(
-    editFamily?.toiletFacility || ""
+    editFamily?.sanitation_facility || ""
   );
   const [centers, setCenters] = useState([]);
   const [subCenters, setSubCenters] = useState([]);
@@ -158,54 +165,121 @@ function AddFamily() {
     const token = localStorage.getItem("token");
 
     const familyData = {
-      id: editFamily?.id || 0,
+      family_id: editFamily?.id || 0,
       house_no: houseNumber,
       village_id: village,
       address: address,
       ration_card: rationCard,
-      card_type: rationCard,
+      card_type: editFamily?.card_type || "",
       social_category: category,
-      sanitation_facility: toiletFacility
+      sanitation_facility: toiletFacility,
+      members: []
     };
+
+    console.log("Family Data Sending:", familyData);
 
     try {
 
-      const response = await axios.post(
-        "http://localhost/backend/api/v1/save_family.php",
-        familyData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        }
-      );
+      let response;
 
-      console.log("Save Family Response:", response.data);
+      if (editFamily?.id) {
+
+        // EDIT EXISTING FAMILY
+
+        response = await axios.post(
+          "http://localhost/backend/api/v1/update_family.php",
+          familyData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      } else {
+
+        // ADD NEW FAMILY
+
+        response = await axios.post(
+          "http://localhost/backend/api/v1/save_family.php",
+          {
+            id: 0,
+            house_no: houseNumber,
+            village_id: village,
+            address: address,
+            ration_card: rationCard,
+            card_type: editFamily?.card_type || "",
+            social_category: category,
+            sanitation_facility: toiletFacility
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            }
+          }
+        );
+
+      }
+
+      console.log(
+        "Save/Update Family Response:",
+        response.data
+      );
 
       if (response.data.status === "success") {
 
+        const familyId =
+          editFamily?.id ||
+          response.data.family_id;
+
         navigate("/family-details", {
           state: {
-            familyId: response.data.family_id,
-            houseNumber,
-            village
+            familyId: familyId
           }
         });
 
       } else {
 
-        alert(response.data.message);
+        alert(
+          response.data.message ||
+          "Unable to save family."
+        );
 
       }
 
     } catch (error) {
 
-      console.error("Save Family Error:", error);
+      console.error(
+        "Save/Update Family Error:",
+        error
+      );
+
+      if (error.response) {
+
+        console.error(
+          "Server Response:",
+          error.response.data
+        );
+
+        alert(
+          error.response.data.message ||
+          "Unable to save family."
+        );
+
+      } else {
+
+        alert(
+          "Unable to connect to the server."
+        );
+
+      }
 
     }
 
   };
+
   return (
     <div className="dashboard-container">
       <Sidebar />
