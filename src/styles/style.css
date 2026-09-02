@@ -1,238 +1,385 @@
 /* ===========================
    Google Font
 =========================== */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* ===========================
    Reset
 =========================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
-body{
-    background:#fcf4fb;
-    /* display:flex;
-    justify-content:center;
-    align-items:center; */
-    min-height:100vh;
+body {
+    min-height: 100vh;
+    background: #f5f7fb;
+}
+
+/* ===========================
+   Login Page
+=========================== */
+
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    background: #f5f7fb;
 }
 
 /* ===========================
    Main Container
 =========================== */
-.login-page{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #fcf4fb;
-}
 
-.content{
+.content {
     position: relative;
-    width: 700px;
-    height: 450px;
-    background: #fff;
-    border-radius: 25px;
+    width: 850px;
+    height: 500px;
+    background: #ffffff;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    box-shadow: 0 10px 30px rgba(6, 59, 112, 0.12);
+    border: 1px solid #e3e8ef;
 }
 
 /* ===========================
    Forms
 =========================== */
 
-.form-box{
-    position:absolute;
-    top:0;
-    width:50%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    transition:all .6s ease-in-out;
-    background:#fff;
+.form-box {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s ease-in-out;
+    background: #ffffff;
 }
 
-.form-box form{
-    width:100%;
-    padding:0 45px;
+.form-box form {
+    width: 100%;
+    padding: 0 50px;
 }
 
-.form-box h1{
-    color:#82257b;
-    text-align:center;
-    margin-bottom:25px;
-    font-weight:600;
+.form-box h1 {
+    color: #063b70;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: 700;
 }
 
-.form-box input{
-    border-radius:10px !important;
+.form-box input {
+    height: 48px;
+    border: 1px solid #d8dee7 !important;
+    border-radius: 7px !important;
+    background: #f8fafc !important;
+    color: #172033;
+    font-size: 14px;
+    box-shadow: none !important;
 }
 
-.submit-btn{
-    width:100%;
-    background:#82257b !important;
-    color:#fff !important;
-    border:none !important;
-    padding:12px;
-    border-radius:10px;
-    margin-top:10px;
-    font-weight:600;
+.form-box input:focus {
+    border-color: #1769aa !important;
+    background: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(23, 105, 170, 0.08) !important;
 }
 
-.submit-btn:hover{
-    background:#6f1d69 !important;
+.form-box input::placeholder {
+    color: #8a94a6;
 }
 
-.form-check-label{
-    font-size:14px;
+/* ===========================
+   Submit Button
+=========================== */
+
+.submit-btn {
+    width: 100%;
+    background: #063b70 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 12px;
+    border-radius: 7px;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.2s ease;
 }
 
-.form-box a{
-    text-decoration:none;
-    color:#82257b;
-    font-size:14px;
+.submit-btn:hover {
+    background: #052f59 !important;
+}
+
+/* ===========================
+   Remember / Forgot Password
+=========================== */
+
+.form-check-label {
+    font-size: 13px;
+    color: #5f6b7a;
+}
+
+.form-check-input {
+    cursor: pointer;
+}
+
+.form-box a {
+    text-decoration: none;
+    color: #1769aa;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.form-box a:hover {
+    text-decoration: underline;
 }
 
 /* ===========================
    Login Position
 =========================== */
 
-.login{
-    left:0;
-    z-index:2;
+.login {
+    left: 0;
+    z-index: 2;
 }
 
 /* ===========================
    Register Position
 =========================== */
 
-.register{
-    left:0;
-    opacity:0;
-    z-index:1;
+.register {
+    left: 0;
+    opacity: 0;
+    z-index: 1;
 }
 
 /* ===========================
    Animation
 =========================== */
 
-.content.active .login{
-    transform:translateX(100%);
-    opacity:0;
+.content.active .login {
+    transform: translateX(100%);
+    opacity: 0;
 }
 
-.content.active .register{
-    transform:translateX(100%);
-    opacity:1;
-    z-index:5;
+.content.active .register {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
 }
-
 
 /* ===========================
-   Purple Sliding Panel
+   Blue Sliding Panel
 =========================== */
 
-.toggle-container{
-    position:absolute;
-    top:0;
-    left:50%;
-    width:50%;
-    height:100%;
-    overflow:hidden;
-    transition:all .6s ease-in-out;
-    border-radius:150px 0 0 100px;
-    z-index:1000;
+.toggle-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.6s ease-in-out;
+    border-radius: 0;
+    z-index: 1000;
 }
 
-.content.active .toggle-container{
-    transform:translateX(-100%);
-    border-radius:0 150px 100px 0;
+.content.active .toggle-container {
+    transform: translateX(-100%);
+    border-radius: 0;
 }
 
-.toggle{
-    position:relative;
-    left:-100%;
-    width:200%;
-    height:100%;
-    background:#82257b;
-    color:#fff;
-    transform:translateX(0);
-    transition:all .6s ease-in-out;
+.toggle {
+    position: relative;
+    left: -100%;
+    width: 200%;
+    height: 100%;
+    background: #063b70;
+    color: #ffffff;
+    transform: translateX(0);
+    transition: all 0.6s ease-in-out;
 }
 
-.content.active .toggle{
-    transform:translateX(50%);
+.content.active .toggle {
+    transform: translateX(50%);
 }
 
 /* ===========================
    Toggle Panels
 =========================== */
 
-.toggle-panel{
-    position:absolute;
-    width:50%;
-    height:100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    padding:0 40px;
-    transition:all .6s ease-in-out;
+.toggle-panel {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 45px;
+    transition: all 0.6s ease-in-out;
 }
 
-.toggle-panel h1{
-    color:#fff;
-    margin-bottom:15px;
-    font-size:32px;
+.toggle-panel h1 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-weight: 700;
 }
 
-.toggle-panel p{
-    font-size:15px;
-    margin-bottom:25px;
-    line-height:1.5;
+.toggle-panel p {
+    font-size: 14px;
+    margin-bottom: 28px;
+    line-height: 1.6;
+    color: #e8f1fa;
 }
 
-.toggle-left{
-    left:0;
-    transform:translateX(-200%);
+.toggle-left {
+    left: 0;
+    transform: translateX(-200%);
 }
 
-.content.active .toggle-left{
-    transform:translateX(0);
+.content.active .toggle-left {
+    transform: translateX(0);
 }
 
-.toggle-right{
-    right:0;
-    transform:translateX(0);
+.toggle-right {
+    right: 0;
+    transform: translateX(0);
 }
 
-.content.active .toggle-right{
-    transform:translateX(200%);
+.content.active .toggle-right {
+    transform: translateX(200%);
 }
 
 /* ===========================
    Switch Button
 =========================== */
 
-.switch-btn{
-    background:transparent !important;
-    color:#fff !important;
-    border:2px solid #fff !important;
-    width:180px;
-    padding:10px;
-    border-radius:10px;
-    font-weight:600;
+.switch-btn {
+    background: transparent !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.8) !important;
+    width: 160px;
+    padding: 10px;
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: 0.2s ease;
 }
 
-.switch-btn:hover{
-    background:#fff !important;
-    color:#82257b !important;
+.switch-btn:hover {
+    background: #ffffff !important;
+    color: #063b70 !important;
+}
+
+/* ===========================
+   Responsive Design
+=========================== */
+
+@media (max-width: 768px) {
+
+    .login-page {
+        padding: 20px;
+    }
+
+    .content {
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        min-height: 620px;
+        border-radius: 12px;
+    }
+
+    .form-box {
+        width: 100%;
+        height: 65%;
+        top: 35%;
+    }
+
+    .form-box form {
+        padding: 0 35px;
+    }
+
+    .form-box h1 {
+        font-size: 24px;
+        margin-bottom: 22px;
+    }
+
+    .toggle-container {
+        width: 100%;
+        height: 35%;
+        left: 0;
+        top: 0;
+    }
+
+    .toggle {
+        width: 200%;
+        left: -100%;
+    }
+
+    .toggle-panel {
+        width: 50%;
+        padding: 0 25px;
+    }
+
+    .toggle-panel h1 {
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
+
+    .toggle-panel p {
+        font-size: 13px;
+        margin-bottom: 15px;
+    }
+
+    .switch-btn {
+        width: 140px;
+        padding: 8px;
+    }
+
+    /* Login/Register animation on mobile */
+
+    .content.active .login {
+        transform: translateY(100%);
+    }
+
+    .content.active .register {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+
+    .login-page {
+        padding: 15px;
+    }
+
+    .content {
+        min-height: 600px;
+    }
+
+    .form-box form {
+        padding: 0 25px;
+    }
+
+    .form-box input {
+        height: 45px;
+    }
+
+    .form-box h1 {
+        font-size: 22px;
+    }
+
+    .submit-btn {
+        padding: 11px;
+    }
 }
