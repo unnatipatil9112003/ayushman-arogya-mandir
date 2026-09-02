@@ -1,0 +1,495 @@
+/* =========================================================
+   ADD / EDIT MEMBER PAGE
+   ========================================================= */
+
+.member-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.member-page-header h2 {
+    margin: 0;
+    color: #172033;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.member-page-header p {
+    margin: 5px 0 0;
+    color: #7a8494;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.member-back-btn {
+    border: 1px solid #d7dce3;
+    background: white;
+    color: #063b70;
+    padding: 9px 16px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.member-back-btn:hover {
+    background: #f4f7fb;
+    border-color: #063b70;
+}
+
+
+/* =========================================================
+   MAIN FORM CARD
+   ========================================================= */
+
+.member-form-card {
+    background: #ffffff;
+    border: 1px solid #e4e8ee;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.member-section {
+    padding: 25px 28px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.member-section:last-of-type {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+   ========================================================= */
+
+.member-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.member-section-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+
+    background: #eaf2fb;
+    color: #063b70;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+}
+
+.member-section-title h4 {
+    margin: 0;
+    color: #172033;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.member-section-title span {
+    display: block;
+    margin-top: 3px;
+    color: #8a94a6;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.member-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 22px;
+}
+
+
+/* =========================================================
+   FORM FIELD
+   ========================================================= */
+
+.member-field {
+    width: 100%;
+}
+
+.member-field-full {
+    grid-column: 1 / -1;
+}
+
+.member-field label,
+.member-main-label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #374151;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.member-field .form-control,
+.member-field .form-select {
+    min-height: 43px;
+
+    border: 1px solid #d9dee6;
+    border-radius: 7px;
+
+    color: #374151;
+    font-size: 13px;
+
+    background: #ffffff;
+
+    box-shadow: none;
+}
+
+.member-field .form-control::placeholder {
+    color: #a1a8b3;
+}
+
+.member-field .form-control:focus,
+.member-field .form-select:focus {
+    border-color: #0d6efd;
+
+    box-shadow:
+        0 0 0 3px rgba(13, 110, 253, 0.10);
+}
+
+
+/* =========================================================
+   HEALTH BOX
+   ========================================================= */
+
+.member-health-box {
+    background: #f8fafc;
+
+    border: 1px solid #e6eaf0;
+    border-radius: 9px;
+
+    padding: 17px;
+}
+
+.disease-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 10px 15px;
+}
+
+.disease-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 10px;
+
+    background: white;
+
+    border: 1px solid #e4e8ee;
+    border-radius: 7px;
+
+    cursor: pointer;
+}
+
+.disease-option:hover {
+    border-color: #b9c8da;
+    background: #f9fbfd;
+}
+
+.disease-option label {
+    color: #4b5563;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.disease-option .form-check-input {
+    margin: 0;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   ALIVE
+   ========================================================= */
+
+.member-alive-box {
+    margin-top: 20px;
+}
+
+.alive-options {
+    display: flex;
+    gap: 25px;
+}
+
+.alive-option {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #4b5563;
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.alive-option input {
+    cursor: pointer;
+}
+
+.death-field {
+    max-width: 400px;
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   HEAD OF FAMILY
+   ========================================================= */
+
+.head-family-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 15px;
+
+    border: 1px solid #dfe5ec;
+    border-radius: 9px;
+
+    background: #f8fafc;
+
+    cursor: pointer;
+}
+
+.head-family-option:hover {
+    background: #f3f7fb;
+}
+
+.head-family-option input {
+    width: 17px;
+    height: 17px;
+
+    cursor: pointer;
+}
+
+.head-family-option strong {
+    display: block;
+
+    color: #374151;
+    font-size: 14px;
+}
+
+.head-family-option small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #8a94a6;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ACTIONS
+   ========================================================= */
+
+.member-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 18px 28px;
+
+    background: #fafbfc;
+
+    border-top: 1px solid #edf0f4;
+}
+
+.member-cancel-btn,
+.member-save-btn {
+    min-width: 120px;
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.member-cancel-btn {
+    background: white;
+
+    border: 1px solid #d4dae2;
+
+    color: #4b5563;
+}
+
+.member-cancel-btn:hover {
+    background: #f4f6f8;
+}
+
+.member-save-btn {
+    background: #0d6efd;
+
+    border: 1px solid #0d6efd;
+
+    color: white;
+}
+
+.member-save-btn:hover {
+    background: #0b5ed7;
+    border-color: #0b5ed7;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .disease-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .member-page-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .member-page-header h2 {
+        font-size: 22px;
+    }
+
+    .member-page-header p {
+        font-size: 12px;
+    }
+
+    .member-back-btn {
+        white-space: nowrap;
+    }
+
+    .member-form-card {
+        border-radius: 10px;
+    }
+
+    .member-section {
+        padding: 20px 16px;
+    }
+
+    .member-section-title {
+        margin-bottom: 18px;
+    }
+
+    .member-section-title h4 {
+        font-size: 16px;
+    }
+
+    .member-form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .member-field-full {
+        grid-column: auto;
+    }
+
+    .disease-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .member-form-actions {
+        padding: 15px 16px;
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .member-cancel-btn,
+    .member-save-btn {
+        width: 100%;
+        min-width: 0;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .member-page-header {
+        flex-direction: column;
+    }
+
+    .member-back-btn {
+        width: 100%;
+    }
+
+    .member-section {
+        padding: 18px 13px;
+    }
+
+    .member-section-icon {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+    }
+
+    .member-section-title h4 {
+        font-size: 15px;
+    }
+
+    .member-section-title span {
+        font-size: 11px;
+    }
+
+    .member-form-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .alive-options {
+        gap: 18px;
+    }
+
+}

@@ -1,0 +1,227 @@
+/* =========================================
+   MEMBER DETAILS PAGE
+========================================= */
+
+.member-details-page {
+    width: 100%;
+}
+
+/* =========================================
+   PAGE HEADER
+========================================= */
+
+.member-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.member-details-header h2 {
+    margin: 0;
+    color: #172033;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.member-details-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* =========================================
+   COMMON CARD
+========================================= */
+
+.member-details-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+.member-details-card h5 {
+    margin: 0;
+    color: #063b70;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.member-details-divider {
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin: 18px 0;
+}
+
+/* =========================================
+   INFORMATION GRID
+========================================= */
+
+.member-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 30px;
+}
+
+.member-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.member-info-label {
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.member-info-value {
+    color: #172033;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* =========================================
+   STATUS
+========================================= */
+
+.member-status {
+    display: inline-flex;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.member-status-yes {
+    background: #e8f7ee;
+    color: #198754;
+}
+
+.member-status-no {
+    background: #fdeaea;
+    color: #dc3545;
+}
+
+/* =========================================
+   DISEASE SECTION
+========================================= */
+
+.member-disease-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.member-disease {
+    background: #e8f1ff;
+    color: #063b70;
+    border: 1px solid #cfe0ff;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.member-no-disease {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.member-back-btn {
+    background: #ffffff;
+    color: #063b70;
+    border: 1px solid #063b70;
+    padding: 8px 18px;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.member-back-btn:hover {
+    background: #063b70;
+    color: #ffffff;
+}
+
+.member-edit-btn {
+    background: #0d6efd;
+    color: #ffffff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 7px;
+}
+
+.member-edit-btn:hover {
+    background: #0b5ed7;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .member-details-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .member-details-header h2 {
+        font-size: 23px;
+    }
+
+    .member-details-header-actions {
+        width: 100%;
+    }
+
+    .member-details-header-actions button {
+        flex: 1;
+    }
+
+    .member-details-card {
+        padding: 17px;
+    }
+
+    .member-info-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .member-info-value {
+        font-size: 14px;
+    }
+
+    .member-disease-list {
+        gap: 6px;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .member-details-card {
+        padding: 14px;
+    }
+
+    .member-details-header h2 {
+        font-size: 21px;
+    }
+
+    .member-details-header-actions {
+        flex-direction: column;
+    }
+
+    .member-details-header-actions button {
+        width: 100%;
+    }
+}

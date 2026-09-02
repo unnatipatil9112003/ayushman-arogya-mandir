@@ -1,0 +1,226 @@
+/* =========================================
+   ADD / EDIT FAMILY PAGE
+========================================= */
+
+.add-family-page {
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.add-family-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.add-family-header h2 {
+    margin: 0;
+    color: #172033;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.add-family-header p {
+    margin: 5px 0 0;
+    color: #7b8494;
+    font-size: 13px;
+}
+
+/* =========================================
+   FORM CARD
+========================================= */
+
+.add-family-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 28px;
+    max-width: 1000px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================
+   FORM GRID
+========================================= */
+
+.add-family-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.add-family-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-family-field.full-width {
+    grid-column: 1 / -1;
+}
+
+/* =========================================
+   LABELS
+========================================= */
+
+.add-family-field label {
+    color: #063b70;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.add-family-field .form-control,
+.add-family-field .form-select {
+    min-height: 44px;
+    border: 1px solid #d9dee7;
+    border-radius: 7px;
+    font-size: 14px;
+    color: #374151;
+    background: #fff;
+}
+
+.add-family-field textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.add-family-field .form-control:focus,
+.add-family-field .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.12);
+}
+
+/* =========================================
+   TOILET RADIO
+========================================= */
+
+.toilet-options {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    min-height: 44px;
+}
+
+.toilet-options .form-check {
+    margin: 0;
+}
+
+.toilet-options .form-check-label {
+    color: #374151;
+    font-size: 14px;
+}
+
+/* =========================================
+   FORM FOOTER
+========================================= */
+
+.add-family-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #edf0f3;
+}
+
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+.add-family-save-btn {
+    background: #0d6efd;
+    color: #ffffff;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 42px;
+}
+
+.add-family-save-btn:hover {
+    background: #0b5ed7;
+    color: #ffffff;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .add-family-page {
+        padding-top: 0;
+    }
+
+    .add-family-header {
+        margin-bottom: 16px;
+    }
+
+    .add-family-header h2 {
+        font-size: 23px;
+    }
+
+    .add-family-card {
+        padding: 18px;
+        border-radius: 10px;
+    }
+
+    .add-family-form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .add-family-field.full-width {
+        grid-column: auto;
+    }
+
+    .add-family-footer {
+        margin-top: 20px;
+    }
+
+    .add-family-save-btn {
+        width: 100%;
+    }
+
+    .toilet-options {
+        gap: 20px;
+    }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .add-family-card {
+        padding: 15px;
+    }
+
+    .add-family-header h2 {
+        font-size: 21px;
+    }
+
+    .add-family-header p {
+        font-size: 12px;
+    }
+
+    .add-family-field label {
+        font-size: 12px;
+    }
+
+    .add-family-field .form-control,
+    .add-family-field .form-select {
+        font-size: 13px;
+    }
+}

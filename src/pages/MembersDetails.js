@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
+import "../styles/memberDetails.css";
 
 function MemberDetails() {
 
@@ -179,150 +180,298 @@ function MemberDetails() {
     }
 
     return (
-
         <div className="dashboard-container">
 
             <Sidebar />
 
             <div className="main-content">
 
-                <div className="card p-4">
+                <div className="member-details-page">
 
-                    <div className="d-flex justify-content-between align-items-center">
+                    {/* PAGE HEADER */}
+                    <div className="member-details-header">
 
-                        <h4>Member Details</h4>
+                        <h2>Member Details</h2>
 
-                        <button
-                            className="btn btn-secondary"
-                            onClick={() =>
-                                navigate("/family-details", {
-                                    state: {
-                                        familyId: family?.id || family?.familyId
-                                    }
-                                })
-                            }
-                        >
-                            Back
-                        </button>
+                        <div className="member-details-header-actions">
+
+                            <button
+                                className="member-back-btn"
+                                onClick={() =>
+                                    navigate("/family-details", {
+                                        state: {
+                                            familyId:
+                                                family?.id ||
+                                                family?.familyId
+                                        }
+                                    })
+                                }
+                            >
+                                ← Back
+                            </button>
+
+                            <button
+                                className="member-edit-btn"
+                                onClick={() =>
+                                    navigate("/add-member", {
+                                        state: {
+                                            family,
+                                            editMember: member
+                                        }
+                                    })
+                                }
+                            >
+                                Edit
+                            </button>
+
+                        </div>
 
                     </div>
 
-                    <hr />
 
-                    <div className="row">
+                    {/* BASIC INFORMATION */}
+                    <div className="member-details-card">
 
-                        <div className="col-md-6 mb-3">
-                            <strong>Full Name:</strong>
-                            <p>{member.full_name || "-"}</p>
-                        </div>
+                        <h5>Personal Information</h5>
 
-                        <div className="col-md-6 mb-3">
-                            <strong>Gender:</strong>
-                            <p>{member.gender || "-"}</p>
-                        </div>
+                        <hr className="member-details-divider" />
 
-                        <div className="col-md-6 mb-3">
-                            <strong>Date of Birth:</strong>
-                            <p>{member.dob || "-"}</p>
-                        </div>
+                        <div className="member-info-grid">
 
-                        <div className="col-md-6 mb-3">
-                            <strong>Approximate Age:</strong>
-                            <p>{member.approx_age ?? "-"}</p>
-                        </div>
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Full Name
+                                </span>
 
-                        <div className="col-md-6 mb-3">
-                            <strong>Mobile Number:</strong>
-                            <p>{member.mobile_no || "-"}</p>
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <strong>Relation:</strong>
-                            <p>{member.relation || "-"}</p>
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <strong>Education:</strong>
-                            <p>{member.education || "-"}</p>
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <strong>Occupation:</strong>
-                            <p>{member.occupation || "-"}</p>
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <strong>Marital Status:</strong>
-                            <p>{member.marital_status || "-"}</p>
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <strong>Alive:</strong>
-                            <p>
-                                {member.is_alive == 1 ? "Yes" : "No"}
-                            </p>
-                        </div>
-
-                        <div className="col-md-6 mb-3">
-                            <strong>Head of Family:</strong>
-                            <p>
-                                {member.is_head == 1 ? "Yes" : "No"}
-                            </p>
-                        </div>
-
-                        {member.is_alive == 0 && (
-                            <div className="col-md-6 mb-3">
-                                <strong>Date of Death:</strong>
-                                <p>{member.date_of_death || "-"}</p>
+                                <span className="member-info-value">
+                                    {member.full_name || "-"}
+                                </span>
                             </div>
-                        )}
+
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Gender
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.gender || "-"}
+                                </span>
+                            </div>
+
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Date of Birth
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.dob || "-"}
+                                </span>
+                            </div>
+
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Approximate Age
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.approx_age ?? "-"}
+                                </span>
+                            </div>
+
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Mobile Number
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.mobile_no || "-"}
+                                </span>
+                            </div>
+
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Relation
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.relation || "-"}
+                                </span>
+                            </div>
+
+                        </div>
 
                     </div>
 
-                    <hr />
 
-                    <h5>Disease Information</h5>
+                    {/* EDUCATION & WORK */}
+                    <div className="member-details-card">
 
-                    <div className="mt-3">
+                        <h5>Education & Occupation</h5>
+
+                        <hr className="member-details-divider" />
+
+                        <div className="member-info-grid">
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Education
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.education || "-"}
+                                </span>
+                            </div>
+
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Occupation
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.occupation || "-"}
+                                </span>
+                            </div>
+
+
+                            <div className="member-info-item">
+                                <span className="member-info-label">
+                                    Marital Status
+                                </span>
+
+                                <span className="member-info-value">
+                                    {member.marital_status || "-"}
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* HEALTH INFORMATION */}
+                    <div className="member-details-card">
+
+                        <h5>Health Information</h5>
+
+                        <hr className="member-details-divider" />
+
+                        <div className="member-info-grid">
+
+                            <div className="member-info-item">
+
+                                <span className="member-info-label">
+                                    Head of Family
+                                </span>
+
+                                <span
+                                    className={`member-status ${member.is_head == 1
+                                            ? "member-status-yes"
+                                            : "member-status-no"
+                                        }`}
+                                >
+                                    {member.is_head == 1
+                                        ? "Yes"
+                                        : "No"}
+                                </span>
+
+                            </div>
+
+
+                            <div className="member-info-item">
+
+                                <span className="member-info-label">
+                                    Alive
+                                </span>
+
+                                <span
+                                    className={`member-status ${member.is_alive == 1
+                                            ? "member-status-yes"
+                                            : "member-status-no"
+                                        }`}
+                                >
+                                    {member.is_alive == 1
+                                        ? "Yes"
+                                        : "No"}
+                                </span>
+
+                            </div>
+
+
+                            {member.is_alive == 0 && (
+
+                                <div className="member-info-item">
+
+                                    <span className="member-info-label">
+                                        Date of Death
+                                    </span>
+
+                                    <span className="member-info-value">
+                                        {member.date_of_death || "-"}
+                                    </span>
+
+                                </div>
+
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    {/* DISEASE INFORMATION */}
+                    <div className="member-details-card">
+
+                        <h5>Disease Information</h5>
+
+                        <hr className="member-details-divider" />
 
                         {
                             member.disease_ids &&
                                 member.disease_ids.length > 0 ? (
 
-                                <div className="d-flex flex-wrap gap-2">
+                                <div className="member-disease-list">
 
                                     {
-                                        member.disease_ids.map((diseaseId) => {
+                                        member.disease_ids.map(
+                                            (diseaseId) => {
 
-                                            const disease = diseases.find(
-                                                (item) =>
-                                                    Number(item.id) ===
-                                                    Number(diseaseId)
-                                            );
+                                                const disease =
+                                                    diseases.find(
+                                                        (item) =>
+                                                            Number(item.id) ===
+                                                            Number(diseaseId)
+                                                    );
 
-                                            return (
+                                                return (
 
-                                                <span
-                                                    key={diseaseId}
-                                                    className="badge bg-primary"
-                                                >
-                                                    {
-                                                        disease
-                                                            ? disease.name
-                                                            : `Disease ID: ${diseaseId}`
-                                                    }
-                                                </span>
+                                                    <span
+                                                        key={diseaseId}
+                                                        className="member-disease"
+                                                    >
+                                                        {
+                                                            disease
+                                                                ? disease.name
+                                                                : `Disease ID: ${diseaseId}`
+                                                        }
+                                                    </span>
 
-                                            );
+                                                );
 
-                                        })
+                                            }
+                                        )
                                     }
 
                                 </div>
 
                             ) : (
 
-                                <p className="text-muted">
+                                <p className="member-no-disease">
                                     No diseases mapped.
                                 </p>
 
@@ -331,12 +480,11 @@ function MemberDetails() {
 
                     </div>
 
+                </div>
+
             </div>
 
         </div>
-
-        </div >
-
     );
 }
 

@@ -1,0 +1,408 @@
+/* =========================================================
+   FAMILIES PAGE
+   ========================================================= */
+
+.families-page {
+    width: 100%;
+    color: #172033;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.families-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.families-title h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+    color: #172033;
+}
+
+.families-title p {
+    margin: 5px 0 0;
+    color: #7b8494;
+    font-size: 13px;
+}
+
+/* =========================================================
+   HEADER ACTIONS
+   ========================================================= */
+
+.families-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.families-search {
+    width: 230px;
+    height: 40px;
+    border: 1px solid #dfe4ea;
+    border-radius: 7px;
+    padding: 0 13px;
+    font-size: 13px;
+    outline: none;
+}
+
+.families-search:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.08);
+}
+
+.families-add-btn {
+    height: 40px;
+    padding: 0 18px;
+    background: #0d6efd;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.families-add-btn:hover {
+    background: #0b5ed7;
+}
+
+/* =========================================================
+   TABLE CARD
+   ========================================================= */
+
+.families-table-card {
+    background: #ffffff;
+    border: 1px solid #e6e9ee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
+.families-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.families-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.families-table thead th {
+    background: #f7f9fc;
+    color: #4b5563;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    padding: 14px 18px;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+.families-table tbody td {
+    padding: 15px 18px;
+    border-bottom: 1px solid #edf0f3;
+    color: #4b5563;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.families-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.families-table tbody tr:hover {
+    background: #fafcff;
+}
+
+/* Family number */
+
+.family-number {
+    color: #063b70;
+    font-weight: 600;
+}
+
+/* Village */
+
+.family-village {
+    color: #374151;
+}
+
+/* Members */
+
+.member-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    padding: 4px 9px;
+    background: #eef5ff;
+    color: #0d6efd;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   ACTION BUTTONS
+   ========================================================= */
+
+.family-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.family-view-btn,
+.family-delete-btn {
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.family-view-btn {
+    background: #eef5ff;
+    border: 1px solid #d6e6ff;
+    color: #0d6efd;
+}
+
+.family-view-btn:hover {
+    background: #dceaff;
+}
+
+.family-delete-btn {
+    background: #fff1f1;
+    border: 1px solid #ffd7d7;
+    color: #dc3545;
+}
+
+.family-delete-btn:hover {
+    background: #ffe1e1;
+}
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.families-empty {
+    padding: 45px 20px !important;
+    text-align: center;
+    color: #8a94a6 !important;
+}
+
+/* =========================================================
+   PAGINATION
+   ========================================================= */
+
+.families-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 18px;
+    border-top: 1px solid #edf0f3;
+}
+
+.pagination-info {
+    color: #7b8494;
+    font-size: 12px;
+}
+
+.pagination-buttons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pagination-btn {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 9px;
+    border: 1px solid #dfe4ea;
+    background: white;
+    color: #4b5563;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+}
+
+.pagination-btn.active {
+    background: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+.pagination-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .families-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .families-title h2 {
+        font-size: 23px;
+    }
+
+    .families-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .families-search {
+        width: 100%;
+    }
+
+    .families-add-btn {
+        width: 100%;
+    }
+
+    .families-table-card {
+        border-radius: 10px;
+    }
+
+    .families-table-wrapper {
+        overflow-x: visible;
+    }
+
+    /*
+       Mobile table becomes compact.
+       We don't force the whole page to horizontally scroll.
+    */
+
+    .families-table,
+    .families-table thead,
+    .families-table tbody,
+    .families-table th,
+    .families-table td,
+    .families-table tr {
+        display: block;
+    }
+
+    .families-table thead {
+        display: none;
+    }
+
+    .families-table tbody tr {
+        padding: 16px;
+        border-bottom: 1px solid #edf0f3;
+    }
+
+    .families-table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .families-table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 7px 0;
+        border: none;
+        font-size: 13px;
+        gap: 15px;
+    }
+
+    .families-table tbody td::before {
+        color: #8a94a6;
+        font-size: 11px;
+        font-weight: 500;
+        flex-shrink: 0;
+    }
+
+    .families-table tbody td:nth-child(1)::before {
+        content: "Family No";
+    }
+
+    .families-table tbody td:nth-child(2)::before {
+        content: "Village";
+    }
+
+    .families-table tbody td:nth-child(3)::before {
+        content: "Head of Family";
+    }
+
+    .families-table tbody td:nth-child(4)::before {
+        content: "Members";
+    }
+
+    .families-table tbody td:nth-child(5)::before {
+        content: "Action";
+    }
+
+    .family-actions {
+        justify-content: flex-end;
+    }
+
+    .families-pagination {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+    }
+
+    .pagination-info {
+        text-align: center;
+    }
+
+    .pagination-buttons {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .families-title h2 {
+        font-size: 21px;
+    }
+
+    .families-table tbody tr {
+        padding: 14px;
+    }
+
+    .family-actions {
+        width: 100%;
+    }
+
+    .family-view-btn,
+    .family-delete-btn {
+        flex: 1;
+    }
+
+    .pagination-btn {
+        min-width: 32px;
+    }
+}

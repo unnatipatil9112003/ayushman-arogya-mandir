@@ -1,0 +1,611 @@
+/* =========================================
+   FAMILY DETAILS PAGE
+========================================= */
+
+.family-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.family-page-header h2 {
+    margin: 8px 0 4px;
+    color: #17365d;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.family-page-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   BREADCRUMB
+========================================= */
+
+.family-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #6c757d;
+}
+
+.family-breadcrumb span:first-child {
+    color: #1a73d9;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.breadcrumb-arrow {
+    color: #9ca3af;
+}
+
+
+/* =========================================
+   HEADER BUTTONS
+========================================= */
+
+.family-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.family-edit-btn {
+    background: #1769c2 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: 6px !important;
+    font-weight: 600;
+}
+
+.family-edit-btn:hover {
+    background: #12549d !important;
+}
+
+.family-add-member-btn {
+    background: #159447 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 18px !important;
+    border-radius: 6px !important;
+    font-weight: 600;
+}
+
+.family-add-member-btn:hover {
+    background: #107b3a !important;
+}
+
+.family-edit-btn span,
+.family-add-member-btn span {
+    margin-right: 6px;
+}
+
+
+/* =========================================
+   FAMILY INFORMATION CARD
+========================================= */
+
+.family-info-card,
+.members-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(20, 40, 70, 0.06);
+    margin-bottom: 22px;
+}
+
+.family-card-title {
+    padding: 20px 22px 12px;
+}
+
+.family-card-title h4,
+.members-card-header h4 {
+    color: #26364a;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 0 4px;
+}
+
+.family-card-title p,
+.members-card-header p {
+    margin: 0;
+    color: #7a8594;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   FAMILY INFORMATION GRID
+========================================= */
+
+.family-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 5px 20px 0;
+    border-top: 1px solid #edf0f4;
+}
+
+.family-info-column {
+    padding: 18px 20px;
+    border-right: 1px solid #edf0f4;
+}
+
+.family-info-column:last-child {
+    border-right: none;
+}
+
+.info-item {
+    margin-bottom: 18px;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-item span,
+.family-address span {
+    display: block;
+    color: #7a8594;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.info-item strong,
+.family-address strong {
+    display: block;
+    color: #26364a;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   ADDRESS
+========================================= */
+
+.family-address {
+    margin: 0 20px;
+    padding: 18px 20px;
+    border-top: 1px solid #edf0f4;
+}
+
+
+/* =========================================
+   MEMBERS HEADER
+========================================= */
+
+.members-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 22px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.member-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 24px;
+    padding: 0 8px;
+    margin-left: 8px;
+    border-radius: 20px;
+    background: #e9f2ff;
+    color: #1769c2;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   MEMBERS TABLE
+========================================= */
+
+.members-content {
+    padding: 0;
+}
+
+.members-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.members-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.members-table th {
+    background: #f7f9fc;
+    color: #687386;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 13px 16px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid #e5e9ef;
+}
+
+.members-table td {
+    padding: 13px 16px;
+    color: #38465a;
+    font-size: 13px;
+    border-bottom: 1px solid #edf0f4;
+    vertical-align: middle;
+}
+
+.members-table tbody tr:hover {
+    background: #fafcff;
+}
+
+
+/* =========================================
+   MEMBER NAME
+========================================= */
+
+.member-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.member-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e8f1ff;
+    color: #1769c2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.member-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.member-status.active {
+    background: #e7f7ee;
+    color: #159447;
+}
+
+.member-status.inactive {
+    background: #fdeaea;
+    color: #dc3545;
+}
+
+
+/* =========================================
+   ACTION BUTTONS
+========================================= */
+
+.member-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.action-btn {
+    width: 31px;
+    height: 31px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.action-btn.view {
+    color: #1769c2;
+    background: #edf5ff;
+}
+
+.action-btn.view:hover {
+    background: #dcecff;
+}
+
+.action-btn.edit {
+    color: #d28a00;
+    background: #fff7df;
+}
+
+.action-btn.edit:hover {
+    background: #ffefbd;
+}
+
+.action-btn.delete {
+    color: #dc3545;
+    background: #fff0f0;
+}
+
+.action-btn.delete:hover {
+    background: #ffe0e0;
+}
+
+
+/* =========================================
+   NO MEMBERS
+========================================= */
+
+.no-members {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.no-members-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.no-members h5 {
+    color: #364152;
+    margin-bottom: 5px;
+}
+
+.no-members p {
+    color: #7a8594;
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   MOBILE MEMBER CARDS
+========================================= */
+
+.mobile-members-list {
+    display: none;
+}
+
+.mobile-member-card {
+    border: 1px solid #e3e8ef;
+    border-radius: 10px;
+    margin: 12px;
+    padding: 15px;
+    background: #fff;
+}
+
+.mobile-member-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.mobile-member-header .member-name {
+    min-width: 0;
+}
+
+.mobile-member-header strong {
+    display: block;
+    color: #26364a;
+    font-size: 14px;
+}
+
+.mobile-member-header small {
+    display: block;
+    color: #7a8594;
+    margin-top: 3px;
+}
+
+.mobile-member-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 12px 0;
+    border-top: 1px solid #edf0f4;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.mobile-member-details span {
+    display: block;
+    color: #7a8594;
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.mobile-member-details strong {
+    color: #364152;
+    font-size: 12px;
+}
+
+.mobile-member-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.mobile-member-actions button {
+    flex: 1;
+    font-size: 12px;
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-families-btn {
+    border: none;
+    background: transparent;
+    color: #1769c2;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px 0;
+    cursor: pointer;
+}
+
+.back-families-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   LOADING
+========================================= */
+
+.family-details-loading {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #687386;
+    gap: 12px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 992px) {
+
+    .family-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .family-info-column:nth-child(2) {
+        border-right: none;
+    }
+
+    .family-info-column:nth-child(3) {
+        grid-column: span 2;
+        border-top: 1px solid #edf0f4;
+        border-right: none;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+        padding-top: 75px;
+    }
+
+    .family-page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .family-page-header h2 {
+        font-size: 23px;
+    }
+
+    .family-header-actions {
+        width: 100%;
+    }
+
+    .family-header-actions button {
+        flex: 1;
+    }
+
+    .family-info-grid {
+        display: block;
+        margin: 5px 15px 0;
+    }
+
+    .family-info-column {
+        border-right: none;
+        border-bottom: 1px solid #edf0f4;
+        padding: 16px 5px;
+    }
+
+    .family-info-column:nth-child(3) {
+        border-top: none;
+    }
+
+    .family-address {
+        margin: 0 15px;
+        padding: 16px 5px;
+    }
+
+    .members-card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .members-card-header button {
+        width: 100%;
+    }
+
+    .members-table-wrapper {
+        display: none;
+    }
+
+    .mobile-members-list {
+        display: block;
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .main-content {
+        padding: 12px;
+        padding-top: 70px;
+    }
+
+    .family-header-actions {
+        flex-direction: column;
+    }
+
+    .family-header-actions button {
+        width: 100%;
+    }
+
+    .family-card-title,
+    .members-card-header {
+        padding: 16px;
+    }
+
+    .mobile-member-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .mobile-member-actions {
+        flex-direction: column;
+    }
+
+    .mobile-member-actions button {
+        width: 100%;
+    }
+
+}
