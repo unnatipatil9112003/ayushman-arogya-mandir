@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { getApiUrl } from "../config/api";
 
-const API_BASE = "http://localhost/backend/api/v1";
 
 function Village() {
     const [centers, setCenters] = useState([]);
@@ -55,7 +55,7 @@ function Village() {
 
     const fetchCenters = async () => {
         const response = await fetch(
-            `${API_BASE}/get_centers.php`,
+            getApiUrl("get_centers.php"),
             {
                 method: "GET",
                 headers: getHeaders(),
@@ -82,7 +82,7 @@ function Village() {
         centerId
     ) => {
         const response = await fetch(
-            `${API_BASE}/get_sub_centers.php?center_id=${centerId}`,
+            `${getApiUrl("get_sub_centers.php")}?center_id=${centerId}`,
             {
                 method: "GET",
                 headers: getHeaders(),
@@ -109,7 +109,7 @@ function Village() {
         subCenter
     ) => {
         const response = await fetch(
-            `${API_BASE}/get_villages.php?sub_center_id=${subCenter.id}`,
+            `${getApiUrl("get_villages.php")}?sub_center_id=${subCenter.id}`,
             {
                 method: "GET",
                 headers: getHeaders(),
@@ -307,7 +307,7 @@ function Village() {
             setSaving(true);
 
             const response = await fetch(
-                `${API_BASE}/save_master_data.php`,
+                getApiUrl("save_master_data.php"),
                 {
                     method: "POST",
                     headers: getHeaders(),

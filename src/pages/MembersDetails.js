@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { getApiUrl } from "../config/api";
 import Sidebar from "../components/Sidebar";
 import "../styles/memberDetails.css";
 
@@ -45,7 +46,7 @@ function MemberDetails() {
                 );
 
                 const response = await axios.get(
-                    `http://localhost/backend/api/v1/get_family_details.php?id=${familyId}`,
+                    `${getApiUrl("get_family_details.php")}?id=${familyId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -118,7 +119,7 @@ function MemberDetails() {
                 }
 
                 const response = await axios.get(
-                    `http://localhost/backend/api/v1/get_family_details.php?id=${familyId}`,
+                    `${getApiUrl("get_family_details.php")}?id=${familyId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -371,8 +372,8 @@ function MemberDetails() {
 
                                 <span
                                     className={`member-status ${member.is_head == 1
-                                            ? "member-status-yes"
-                                            : "member-status-no"
+                                        ? "member-status-yes"
+                                        : "member-status-no"
                                         }`}
                                 >
                                     {member.is_head == 1
@@ -391,8 +392,8 @@ function MemberDetails() {
 
                                 <span
                                     className={`member-status ${member.is_alive == 1
-                                            ? "member-status-yes"
-                                            : "member-status-no"
+                                        ? "member-status-yes"
+                                        : "member-status-no"
                                         }`}
                                 >
                                     {member.is_alive == 1

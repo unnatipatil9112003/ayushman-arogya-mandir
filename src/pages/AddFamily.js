@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getApiUrl } from "../config/api";
 import { useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import "../styles/addFamily.css";
@@ -60,7 +61,7 @@ function AddFamily() {
                 const token = localStorage.getItem("token");
 
                 const response = await axios.get(
-                    "http://localhost/backend/api/v1/get_centers.php",
+                    getApiUrl("get_centers.php"),
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -111,7 +112,7 @@ function AddFamily() {
                 const token = localStorage.getItem("token");
 
                 const response = await axios.get(
-                    `http://localhost/backend/api/v1/get_sub_centers.php?center_id=${center}`,
+                    `${getApiUrl("get_sub_centers.php")}?center_id=${center}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -165,7 +166,7 @@ function AddFamily() {
                 const token = localStorage.getItem("token");
 
                 const response = await axios.get(
-                    `http://localhost/backend/api/v1/get_villages.php?sub_center_id=${subCenter}`,
+                     `${getApiUrl("get_villages.php")}?sub_center_id=${subCenter}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -252,7 +253,7 @@ function AddFamily() {
 
                 response = await axios.post(
 
-                    "http://localhost/backend/api/v1/update_family.php",
+                    getApiUrl("update_family.php"),
 
                     familyData,
 
@@ -281,7 +282,7 @@ function AddFamily() {
 
                 response = await axios.post(
 
-                    "http://localhost/backend/api/v1/save_family.php",
+                    getApiUrl("save_family.php"),
 
                     {
 

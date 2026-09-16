@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getApiUrl } from "../config/api";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
@@ -41,236 +42,88 @@ function Dashboard() {
                 },
             };
 
-            /*
-             * =====================================================
-             * 1. GET ALL FAMILIES
-             * =====================================================
-             *
-             * We are using the existing get_families.php.
-             *
-             * A larger limit is used so that dashboard statistics
-             * can be calculated from all available families.
-             */
-
+            // Get all dashboard data from one API
             const response = await axios.get(
-                "http://localhost/backend/api/v1/get_families.php?page=1&limit=10000",
+                getApiUrl("get_dashboard.php"),
                 config
             );
 
-            console.log("Dashboard Families API:", response.data);
+            console.log("Dashboard API:", response.data);
 
             if (response.data.status !== "success") {
-                console.error("Unable to load families");
+                console.error("Unable to load dashboard data");
                 return;
             }
 
-            const allFamilies = response.data.data || [];
+            // =====================================================
+            // 1. DASHBOARD STATISTICS
+            // =====================================================
 
-            /*
-             * =====================================================
-             * 2. CALCULATE BASIC STATISTICS
-             * =====================================================
-             */
-
-            const totalFamilies =
-                Number(response.data.pagination?.total_records) ||
-                allFamilies.length;
-
-            const totalMembers = allFamilies.reduce(
-                (total, family) =>
-                    total + Number(family.total_members || 0),
-                0
-            );
-
-            /*
-             * Unique villages
-             */
-
-            const uniqueVillages = new Set(
-                allFamilies
-                    .map((family) => family.village_name)
-                    .filter(Boolean)
-            );
-
-            /*
-             * =====================================================
-             * 3. LOAD FAMILY DETAILS
-             * =====================================================
-             *
-             * Existing get_family_details.php gives:
-             *
-             * - center_id
-             * - diseases
-             * - members
-             *
-             * No new API is required.
-             */
-
-            const familyDetailsRequests = allFamilies.map(
-                async (family) => {
-                    try {
-                        const familyId = family.family_id;
-
-                        const detailResponse = await axios.get(
-                            `http://localhost/backend/api/v1/get_family_details.php?id=${familyId}`,
-                            config
-                        );
-
-                        if (
-                            detailResponse.data.status ===
-                            "success"
-                        ) {
-                            return detailResponse.data.data;
-                        }
-
-                        return null;
-                    } catch (error) {
-                        console.error(
-                            `Unable to load family ${family.family_id}`,
-                            error
-                        );
-
-                        return null;
-                    }
-                }
-            );
-
-            const familyDetails =
-                await Promise.all(familyDetailsRequests);
-
-            /*
-             * =====================================================
-             * 4. CALCULATE UNIQUE CENTERS
-             * =====================================================
-             */
-
-            const uniqueCenters = new Set();
-
-            familyDetails.forEach((detail) => {
-                if (!detail) return;
-
-                const family = detail.family;
-
-                if (family?.center_id) {
-                    uniqueCenters.add(
-                        Number(family.center_id)
-                    );
-                }
-            });
-
-            /*
-             * =====================================================
-             * 5. DISEASE SUMMARY
-             * =====================================================
-             */
-
-            const diseaseCountMap = {};
-
-            familyDetails.forEach((detail) => {
-                if (!detail) return;
-
-                const members = detail.members || [];
-                const diseases = detail.diseases || [];
-
-                members.forEach((member) => {
-                    const diseaseIds =
-                        member.disease_ids || [];
-
-                    diseaseIds.forEach((diseaseId) => {
-                        const disease = diseases.find(
-                            (item) =>
-                                Number(item.id) ===
-                                Number(diseaseId)
-                        );
-
-                        if (!disease) return;
-
-                        const diseaseName =
-                            disease.name;
-
-                        if (
-                            !diseaseCountMap[
-                                diseaseName
-                            ]
-                        ) {
-                            diseaseCountMap[
-                                diseaseName
-                            ] = 0;
-                        }
-
-                        diseaseCountMap[
-                            diseaseName
-                        ] += 1;
-                    });
-                });
-            });
-
-            /*
-             * Convert disease object to array
-             */
-
-            const diseaseArray = Object.entries(
-                diseaseCountMap
-            )
-                .map(([name, count]) => ({
-                    name,
-                    count,
-                }))
-                .sort(
-                    (a, b) =>
-                        b.count - a.count
-                );
-
-            const totalDiseaseCases =
-                diseaseArray.reduce(
-                    (total, disease) =>
-                        total +
-                        Number(disease.count),
-                    0
-                );
-
-            const mostCommonDisease =
-                diseaseArray.length > 0
-                    ? diseaseArray[0].name
-                    : "-";
-
-            /*
-             * =====================================================
-             * 6. UPDATE DASHBOARD STATS
-             * =====================================================
-             */
+            const dashboardStats = response.data.stats || {};
 
             setStats({
-                families: totalFamilies,
-                members: totalMembers,
-                villages: uniqueVillages.size,
-                centers: uniqueCenters.size,
+                families: Number(
+                    dashboardStats.total_families || 0
+                ),
+
+                members: Number(
+                    dashboardStats.total_members || 0
+                ),
+
+                villages: Number(
+                    dashboardStats.total_villages || 0
+                ),
+
+                centers: Number(
+                    dashboardStats.total_centers || 0
+                ),
             });
 
-            /*
-             * =====================================================
-             * 7. UPDATE DISEASE STATS
-             * =====================================================
-             */
+
+            // =====================================================
+            // 2. DISEASE STATISTICS
+            // =====================================================
+
+            const diseaseSummary =
+                response.data.disease_summary || {};
+
+            const diseases =
+                diseaseSummary.diseases || [];
+
+            const diseaseArray = diseases.map(
+                (disease) => ({
+                    name: disease.disease_name,
+                    count: Number(
+                        disease.total_cases || 0
+                    ),
+                })
+            );
 
             setDiseaseStats({
-                totalCases: totalDiseaseCases,
+                totalCases: Number(
+                    diseaseSummary.total_cases || 0
+                ),
+
                 commonDisease:
-                    mostCommonDisease,
-                diseaseTypes:
-                    diseaseArray.length,
+                    diseaseSummary.common_disease || "-",
+
+                diseaseTypes: Number(
+                    diseaseSummary.disease_types || 0
+                ),
+
                 diseases: diseaseArray,
             });
 
-            /*
-             * =====================================================
-             * 8. RECENT FAMILIES
-             * =====================================================
-             *
-             * API already returns newest families first.
-             */
 
-            setFamilies(allFamilies.slice(0, 5));
+            // =====================================================
+            // 3. RECENT FAMILIES
+            // =====================================================
+
+            const recentFamilies =
+                response.data.recent_families || [];
+
+            setFamilies(recentFamilies);
+
         } catch (error) {
             console.error(
                 "Dashboard Error:",
@@ -281,12 +134,6 @@ function Dashboard() {
         }
     };
 
-    /*
-     * =========================================================
-     * VIEW FAMILY
-     * =========================================================
-     */
-
     const handleViewFamily = (family) => {
         navigate("/family-details", {
             state: {
@@ -294,7 +141,6 @@ function Dashboard() {
             },
         });
     };
-
     /*
      * =========================================================
      * VIEW ALL FAMILIES
@@ -920,51 +766,51 @@ function Dashboard() {
                         {diseaseStats.diseases.length >
                             0 && (
 
-                            <div className="disease-list">
+                                <div className="disease-list">
 
-                                {diseaseStats.diseases
-                                    .slice(0, 5)
-                                    .map(
-                                        (
-                                            disease,
-                                            index
-                                        ) => (
+                                    {diseaseStats.diseases
+                                        .slice(0, 5)
+                                        .map(
+                                            (
+                                                disease,
+                                                index
+                                            ) => (
 
-                                            <div
-                                                className="disease-item"
-                                                key={
-                                                    disease.name
-                                                }
-                                            >
-
-                                                <div className="disease-name">
-
-                                                    <span
-                                                        className={`disease-dot ${getDiseaseDotClass(
-                                                            index
-                                                        )}`}
-                                                    />
-
-                                                    {
+                                                <div
+                                                    className="disease-item"
+                                                    key={
                                                         disease.name
                                                     }
+                                                >
+
+                                                    <div className="disease-name">
+
+                                                        <span
+                                                            className={`disease-dot ${getDiseaseDotClass(
+                                                                index
+                                                            )}`}
+                                                        />
+
+                                                        {
+                                                            disease.name
+                                                        }
+
+                                                    </div>
+
+                                                    <strong>
+                                                        {
+                                                            disease.count
+                                                        }
+                                                    </strong>
 
                                                 </div>
 
-                                                <strong>
-                                                    {
-                                                        disease.count
-                                                    }
-                                                </strong>
+                                            )
+                                        )}
 
-                                            </div>
+                                </div>
 
-                                        )
-                                    )}
-
-                            </div>
-
-                        )}
+                            )}
 
                     </div>
 

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { getApiUrl } from "../config/api";
 import Sidebar from "../components/Sidebar";
 import "../styles/families.css";
 
@@ -12,22 +13,16 @@ function Families() {
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalRecords, setTotalRecords] = useState(0);
 
     const itemsPerPage = 10;
 
-    // Loading
-    const [loading, setLoading] = useState(false);
-
     // Load families
-    const loadFamilies = async () => {
+    const loadFamilies = useCallback(async (page = currentPage) => {
         try {
-            setLoading(true);
-
             const token = localStorage.getItem("token");
 
             const response = await axios.get(
-                `http://localhost/backend/api/v1/get_families.php?page=${currentPage}&limit=${itemsPerPage}`,
+                `${getApiUrl("get_families.php")}?page=${page}&limit=${itemsPerPage}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -45,20 +40,16 @@ function Families() {
                     response.data.pagination?.total_pages || 1
                 );
 
-                setTotalRecords(
-                    response.data.pagination?.total_records || 0
-                );
+                setCurrentPage(page);
             }
         } catch (error) {
             console.error("Families API Error:", error);
-        } finally {
-            setLoading(false);
         }
-    };
+    }, [currentPage]);
 
     useEffect(() => {
         loadFamilies();
-    }, [currentPage]);
+    }, [loadFamilies]);
 
     // Delete family
     const handleDelete = async (id) => {
@@ -76,7 +67,7 @@ function Families() {
             console.log("Deleting Family ID:", id);
 
             const response = await axios.post(
-                "http://localhost/backend/api/v1/delete_family.php",
+                getApiUrl("delete_family.php"),
                 {
                     id: id,
                 },
@@ -128,35 +119,6 @@ function Families() {
         }
     };
 
-    // Go to previous page
-    const handlePrevious = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    // Go to next page
-    const handleNext = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    // Go to specific page
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
-
-    // Generate page numbers
-    const getPageNumbers = () => {
-        const pages = [];
-
-        for (let i = 1; i <= totalPages; i++) {
-            pages.push(i);
-        }
-
-        return pages;
-    };
 
     return (
         <div className="dashboard-container">
@@ -330,8 +292,8 @@ function Families() {
                                     <button
                                         key={page}
                                         className={`pagination-btn ${currentPage === page
-                                                ? "active"
-                                                : ""
+                                            ? "active"
+                                            : ""
                                             }`}
                                         onClick={() =>
                                             loadFamilies(page)

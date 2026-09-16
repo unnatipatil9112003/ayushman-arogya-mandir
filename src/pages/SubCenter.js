@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import { getApiUrl } from "../config/api";
 
-const API_BASE = "http://localhost/backend/api/v1";
 
 function SubCenter() {
     const [centers, setCenters] = useState([]);
@@ -43,7 +43,7 @@ function SubCenter() {
 
     const fetchCenters = async () => {
         const response = await fetch(
-            `${API_BASE}/get_centers.php`,
+            getApiUrl("get_centers.php"),
             {
                 method: "GET",
                 headers: getHeaders(),
@@ -63,7 +63,7 @@ function SubCenter() {
 
     const fetchSubCentersForCenter = async (center) => {
         const response = await fetch(
-            `${API_BASE}/get_sub_centers.php?center_id=${center.id}`,
+            `${getApiUrl("get_sub_centers.php")}?center_id=${center.id}`,
             {
                 method: "GET",
                 headers: getHeaders(),
@@ -147,7 +147,7 @@ function SubCenter() {
             setSaving(true);
 
             const response = await fetch(
-                `${API_BASE}/save_master_data.php`,
+                getApiUrl("save_master_data.php"),
                 {
                     method: "POST",
                     headers: getHeaders(),

@@ -13,7 +13,7 @@ import Village from './pages/Village';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename='/build'>
       <Routes>
         <Route path="/" element={<LoginRegister />} />
         <Route path="/dashboard" element={<Dashboard />} />

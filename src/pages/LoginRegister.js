@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { getApiUrl } from "../config/api";
 import "../styles/style.css";
 import { useNavigate } from "react-router-dom";
 
@@ -41,7 +42,7 @@ function LoginRegister() {
 
     try {
       const response = await axios.post(
-        "http://localhost/backend/api/v1/login.php",
+        getApiUrl("login.php"),
         {
           mobile_no: mobileNo,
           password: loginPassword,

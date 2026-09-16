@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { getApiUrl } from "../config/api";
 import Sidebar from "../components/Sidebar";
 import "../styles/addMember.css";
 
@@ -98,7 +99,7 @@ function AddMember() {
                 );
 
                 const response = await axios.get(
-                    `http://localhost/backend/api/v1/get_family_details.php?id=${familyId}`,
+                    `${getApiUrl("get_family_details.php")}?id=${familyId}`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`
@@ -179,7 +180,7 @@ function AddMember() {
                 localStorage.getItem("token");
 
             const response = await axios.post(
-                "http://localhost/backend/api/v1/save_member.php",
+                getApiUrl("save_member.php"),
                 memberData,
                 {
                     headers: {
